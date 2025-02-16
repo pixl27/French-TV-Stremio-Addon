@@ -23,6 +23,7 @@
     "express": "^4.21.0",
     "http-proxy-agent": "^5.0.0",
     "node-cache": "^5.1.2",
+    "p-limit": "^6.2.0",
     "socks-proxy-agent": "^7.0.0",
     "stremio-addon-sdk": "^1.6.10"
   },
