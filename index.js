@@ -11,7 +11,7 @@ const IPTV_CHANNELS_URL = 'https://iptv-org.github.io/api/channels.json';
 const PORT = process.env.PORT || 3000;
 const FETCH_INTERVAL = parseInt(process.env.FETCH_INTERVAL) || 86400000; // 1 day default
 const PROXY_URL = process.env.PROXY_URL || '';
-const FETCH_TIMEOUT = parseInt(process.env.FETCH_TIMEOUT) || 30000; // increased to 20 seconds
+const FETCH_TIMEOUT = parseInt(process.env.FETCH_TIMEOUT) || 60000; // increased to 20 seconds
 // Configuration for channel filtering.
 const config = {
     includeLanguages: process.env.INCLUDE_LANGUAGES ? process.env.INCLUDE_LANGUAGES.split(',') : [],
