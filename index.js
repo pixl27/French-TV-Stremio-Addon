@@ -5,6 +5,7 @@ const NodeCache = require('node-cache');
 const { SocksProxyAgent } = require('socks-proxy-agent');
 const { HttpProxyAgent } = require('http-proxy-agent');
 const fetchAllStreamUrls = require('./fetchAllStreamUrls');
+const path = require('path');
 
 // Constants
 const IPTV_CHANNELS_URL = 'https://iptv-org.github.io/api/channels.json';
@@ -24,6 +25,7 @@ const config = {
 // Express app setup
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Cache setup
 const cache = new NodeCache({ stdTTL: 0 });
@@ -32,46 +34,20 @@ const cache = new NodeCache({ stdTTL: 0 });
 const manifest = {
     id: 'org.iptv',
     name: 'French TV',
-    version: '0.0.2',
+    version: '0.5.0',
     description: `Watch live TV from France`,
     resources: ['catalog', 'meta', 'stream'],
     types: ['tv'],
     catalogs: config.includeCountries.map(country => ({
         type: 'tv',
         id: `iptv-channels-${country}`,
-        name: `IPTV - ${country}`,
+        name: `French TV`,
         extra: [
             {
                 name: 'genre',
                 isRequired: false,
                 "options": [
                     "animation",
-                    "business",
-                    "classic",
-                    "comedy",
-                    "cooking",
-                    "culture",
-                    "documentary",
-                    "education",
-                    "entertainment",
-                    "family",
-                    "kids",
-                    "legislative",
-                    "lifestyle",
-                    "movies",
-                    "music",
-                    "general",
-                    "religious",
-                    "news",
-                    "outdoor",
-                    "relax",
-                    "series",
-                    "science",
-                    "shop",
-                    "sports",
-                    "travel",
-                    "weather",
-                    "xxx",
                     "auto"
                 ]
             }
@@ -259,12 +235,47 @@ addon.defineStreamHandler(async ({ type, id }) => {
 });
 
 // Server setup
+const server = app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
+
+// Define routes for Express app BEFORE SDK takes over
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// API endpoint for channel previews on landing page
+app.get('/api/channels', async (req, res) => {
+    try {
+        const channels = await getStreamInfo();
+        if (!channels || channels.length === 0) {
+            return res.status(404).json({ error: 'No channels found' });
+        }
+        
+        // Return ALL channels
+        const allChannels = channels.map(channel => ({
+            id: channel.id,
+            name: channel.name,
+            logo: channel.logo
+        }));
+        
+        res.json(allChannels);
+    } catch (error) {
+        console.error('Error fetching channel previews:', error);
+        res.status(500).json({ error: 'Failed to fetch channels' });
+    }
+});
+
 app.get('/manifest.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
+    // Add CORS headers to allow Stremio to access the manifest
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
     res.json(manifest);
 });
 
-serveHTTP(addon.getInterface(), { server: app, path: '/manifest.json', port: PORT });
+// Let the SDK handle its specific endpoints
+serveHTTP(addon.getInterface(), { server, path: '/stremio/manifest.json' });
 
 // Cache management
 const fetchAndCacheInfo = async () => {
