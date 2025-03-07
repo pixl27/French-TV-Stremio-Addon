@@ -13,7 +13,7 @@ async function fetchAllStreamUrls() {
     };
 
     // Limit the number of concurrent requests to 3.
-    const limit = pLimit(3);
+    const limit = pLimit(4);
 
     const channels = await Promise.all(newsIds.map((newsId) =>
         limit(async () => {
