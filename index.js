@@ -5,6 +5,7 @@ const NodeCache = require('node-cache');
 const { SocksProxyAgent } = require('socks-proxy-agent');
 const { HttpProxyAgent } = require('http-proxy-agent');
 const fetchAllStreamUrls = require('./fetchAllStreamUrls');
+const path = require('path');
 
 // Constants
 const IPTV_CHANNELS_URL = 'https://iptv-org.github.io/api/channels.json';
@@ -24,6 +25,7 @@ const config = {
 // Express app setup
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Cache setup
 const cache = new NodeCache({ stdTTL: 0 });
@@ -39,7 +41,7 @@ const manifest = {
     catalogs: config.includeCountries.map(country => ({
         type: 'tv',
         id: `iptv-channels-${country}`,
-        name: `IPTV - ${country}`,
+        name: `French TV`,
         extra: [
             {
                 name: 'genre',
@@ -259,9 +261,37 @@ addon.defineStreamHandler(async ({ type, id }) => {
 });
 
 // Server setup
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.get('/manifest.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
     res.json(manifest);
+});
+
+// API endpoint to get channel previews
+app.get('/api/channels', async (req, res) => {
+    try {
+        const channels = await getStreamInfo();
+        if (!channels || channels.length === 0) {
+            return res.status(404).json({ error: 'No channels found' });
+        }
+        
+        // Return channel preview data
+        const channelData = channels.map(channel => ({
+            id: channel.id,
+            name: channel.name,
+            logo: channel.logo
+        }));
+        
+        res.json(channelData);
+    } catch (error) {
+        console.error('Error fetching channels:', error);
+        res.status(500).json({ error: 'Failed to load channels' });
+    }
 });
 
 serveHTTP(addon.getInterface(), { server: app, path: '/manifest.json', port: PORT });
