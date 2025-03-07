@@ -1,6 +1,6 @@
-# IPTV Stremio Addon
+# French IPTV Stremio Addon
 
-This Stremio addon provides access to IPTV channels using M3U links, leveraging the excellent work of iptv-org and filtering out inactive channels.
+This Stremio addon provides access to French IPTV channels using French Stream links, leveraging the excellent work of iptv-org and filtering out inactive channels.
 
 ## Features
 
