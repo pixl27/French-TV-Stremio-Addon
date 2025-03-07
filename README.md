@@ -2,13 +2,6 @@
 
 This Stremio addon provides access to IPTV channels using M3U links, leveraging the excellent work of iptv-org and filtering out inactive channels.
 
-## Demo
-
-Try the addon with Greek TV channels:
-[http://a0964931e94e-iptv-stremio.baby-beamup.club/manifest.json](http://a0964931e94e-iptv-stremio.baby-beamup.club/manifest.json)
-
-Note: The server hosting this addon is not located in Greece, so some Greek channels may be unavailable. Only channels accessible from the server's location are included.
-
 ## Features
 
 - Wide range of IPTV channels
