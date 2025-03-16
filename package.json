@@ -7,7 +7,9 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "node build-cache.js",
+    "vercel-build": "npm run build"
   },
   "keywords": [
     "stremio",

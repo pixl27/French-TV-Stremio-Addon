@@ -6,6 +6,10 @@ const { SocksProxyAgent } = require('socks-proxy-agent');
 const { HttpProxyAgent } = require('http-proxy-agent');
 const fetchAllStreamUrls = require('./fetchAllStreamUrls');
 const path = require('path');
+const fs = require('fs');
+
+// Check if running in Vercel environment
+const isVercel = true;
 
 // Constants
 const IPTV_CHANNELS_URL = 'https://iptv-org.github.io/api/channels.json';
@@ -29,6 +33,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Cache setup
 const cache = new NodeCache({ stdTTL: 0 });
+
+// Load pre-built cache if on Vercel
+if (isVercel) {
+  try {
+    const cachePath = path.join(__dirname, 'cache');
+    
+    // Load streams cache
+    if (fs.existsSync(path.join(cachePath, 'channels-cache.json'))) {
+      const streamsData = JSON.parse(fs.readFileSync(path.join(cachePath, 'channels-cache.json'), 'utf8'));
+      console.log(`Loaded ${streamsData.length} channels from pre-built cache`);
+      cache.set('streams', streamsData);
+    }
+    
+    // Load channelsInfo cache
+    if (fs.existsSync(path.join(cachePath, 'channelsInfo-cache.json'))) {
+      const channelsInfo = JSON.parse(fs.readFileSync(path.join(cachePath, 'channelsInfo-cache.json'), 'utf8'));
+      console.log(`Loaded ${channelsInfo.length} processed channels from pre-built cache`);
+      cache.set('channelsInfo', channelsInfo);
+    }
+  } catch (error) {
+    console.error('Error loading pre-built cache:', error);
+  }
+}
 
 // Addon Manifest
 const manifest = {
@@ -121,20 +148,35 @@ const getChannels = async () => {
 
 // Fetch custom stream info using the external stream URL.
 // Note that this returns an array with a single stream object.
-
 const getStreamInfo = async () => {
-    if (!cache.has('streams')) {
-        console.log("Downloading channel streams from french-tv.lol");
+    if (cache.has('streams')) {
+        return cache.get('streams');
+    }
+
+    // If we're in Vercel environment and don't have cache loaded, attempt to load from file
+    if (isVercel) {
         try {
-            const streamsData = await fetchAllStreamUrls();
-            // streamsData now is an array of channel objects [{ id, url, logo, name }, ...]
-            cache.set('streams', streamsData);
+            const cachePath = path.join(__dirname, 'cache', 'channels-cache.json');
+            if (fs.existsSync(cachePath)) {
+                const streamsData = JSON.parse(fs.readFileSync(cachePath, 'utf8'));
+                cache.set('streams', streamsData);
+                return streamsData;
+            }
         } catch (error) {
-            console.error('Error fetching custom stream urls:', error);
-            return [];
+            console.error('Error loading streams from cache file:', error);
         }
     }
-    return cache.get('streams');
+    
+    console.log("Downloading channel streams from french-tv.lol");
+    try {
+        const streamsData = await fetchAllStreamUrls();
+        // streamsData now is an array of channel objects [{ id, url, logo, name }, ...]
+        cache.set('streams', streamsData);
+        return streamsData;
+    } catch (error) {
+        console.error('Error fetching custom stream urls:', error);
+        return [];
+    }
 };
 
 // Verify stream URL by sending a HEAD request.
@@ -181,13 +223,29 @@ const verifyStreamURL = async (url, userAgent, httpReferrer) => {
 
 // Get all channel information and assign the same custom stream to every channel.
 const getAllInfo = async () => {
-    if (cache.has('channelsInfo')) return cache.get('channelsInfo');
+    if (cache.has('channelsInfo')) {
+        return cache.get('channelsInfo');
+    }
+    
+    // If we're in Vercel environment and don't have cache loaded, attempt to load from file
+    if (isVercel) {
+        try {
+            const cachePath = path.join(__dirname, 'cache', 'channelsInfo-cache.json');
+            if (fs.existsSync(cachePath)) {
+                const channelsInfo = JSON.parse(fs.readFileSync(cachePath, 'utf8'));
+                cache.set('channelsInfo', channelsInfo);
+                return channelsInfo;
+            }
+        } catch (error) {
+            console.error('Error loading channelsInfo from cache file:', error);
+        }
+    }
     
     try {
         const channels = await getStreamInfo();
         if (!channels || channels.length === 0) {
             console.log('No channels fetched from french-tv.lol');
-            return cache.get('channelsInfo') || [];
+            return [];
         }
         
         // Filter out any null or undefined channel objects before mapping
@@ -221,7 +279,7 @@ const getAllInfo = async () => {
         return channelsWithDetails;
     } catch (error) {
         console.error('Error caching channel information:', error);
-        return cache.get('channelsInfo') || [];
+        return [];
     }
 };
 
