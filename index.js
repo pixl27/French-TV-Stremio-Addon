@@ -34,7 +34,7 @@ const cache = new NodeCache({ stdTTL: 0 });
 const manifest = {
     id: 'org.iptv',
     name: 'French TV',
-    version: '0.0.2',
+    version: '0.0.3',
     description: `Watch live TV from France`,
     resources: ['catalog', 'meta', 'stream'],
     types: ['tv'],
@@ -183,37 +183,46 @@ const verifyStreamURL = async (url, userAgent, httpReferrer) => {
 const getAllInfo = async () => {
     if (cache.has('channelsInfo')) return cache.get('channelsInfo');
     
-    const channels = await getStreamInfo();
-    if (!channels || channels.length === 0) {
-        console.log('No channels fetched from french-tv.lol');
+    try {
+        const channels = await getStreamInfo();
+        if (!channels || channels.length === 0) {
+            console.log('No channels fetched from french-tv.lol');
+            return cache.get('channelsInfo') || [];
+        }
+        
+        // Filter out any null or undefined channel objects before mapping
+        const validChannels = channels.filter(channel => channel && channel.id && channel.url);
+        console.log(`Found ${validChannels.length} valid channels out of ${channels.length} total`);
+        
+        // Map each channel (from news IDs) to a Stremio meta object.
+        // Here we include a default country (using the first item from config.includeCountries)
+        // so that the catalog filter (e.g. "GR") will match.
+        const defaultCountry = config.includeCountries[0] || '';
+        const channelsWithDetails = validChannels.map(channel => {
+            const meta = {
+                id: `iptv-${channel.id}`,
+                name: channel.name || `Channel ${channel.id}`,
+                type: 'tv',
+                genres: [defaultCountry, channel.name || `Channel ${channel.id}`], // include the default country
+                poster: channel.logo || null,
+                posterShape: 'square',
+                background: channel.logo || null,
+                logo: channel.logo || null,
+                streamInfo: {
+                    url: channel.url,
+                    title: 'Live Stream',
+                    httpReferrer: ''
+                }
+            };
+            return meta;
+        });
+        
+        cache.set('channelsInfo', channelsWithDetails);
+        return channelsWithDetails;
+    } catch (error) {
+        console.error('Error caching channel information:', error);
         return cache.get('channelsInfo') || [];
     }
-    
-    // Map each channel (from news IDs) to a Stremio meta object.
-    // Here we include a default country (using the first item from config.includeCountries)
-    // so that the catalog filter (e.g. "GR") will match.
-    const defaultCountry = config.includeCountries[0] || '';
-    const channelsWithDetails = channels.map(channel => {
-        const meta = {
-            id: `iptv-${channel.id}`,
-            name: channel.name,
-            type: 'tv',
-            genres: [defaultCountry, channel.name], // include the default country
-            poster: channel.logo,
-            posterShape: 'square',
-            background: channel.logo,
-            logo: channel.logo,
-            streamInfo: {
-                url: channel.url,
-                title: 'Live Stream',
-                httpReferrer: ''
-            }
-        };
-        return meta;
-    });
-    
-    cache.set('channelsInfo', channelsWithDetails);
-    return channelsWithDetails;
 };
 
 // Addon Handlers
@@ -280,11 +289,14 @@ app.get('/api/channels', async (req, res) => {
             return res.status(404).json({ error: 'No channels found' });
         }
         
+        // Filter out null or invalid channels before mapping
+        const validChannels = channels.filter(channel => channel && channel.id);
+        
         // Return channel preview data
-        const channelData = channels.map(channel => ({
+        const channelData = validChannels.map(channel => ({
             id: channel.id,
-            name: channel.name,
-            logo: channel.logo
+            name: channel.name || `Channel ${channel.id}`,
+            logo: channel.logo || null
         }));
         
         res.json(channelData);
