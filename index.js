@@ -61,7 +61,7 @@ if (isVercel) {
 const manifest = {
     id: 'org.iptv',
     name: 'French TV',
-    version: '0.0.3',
+    version: '0.0.5',
     description: `Watch live TV from France`,
     resources: ['catalog', 'meta', 'stream'],
     types: ['tv'],
