@@ -1,4 +1,6 @@
 const axios = require('axios');
+const fs = require('fs');
+const { captureChannelAuth } = require('./capture-auth-stream');
 
 async function fetchAllStreamUrls() {
     // Import p-limit dynamically.
@@ -9,11 +11,11 @@ async function fetchAllStreamUrls() {
     const headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'text/html',
-        'Referer': 'https://french-tv.lol/',
+        'Referer': 'https://fstv.fun/',
     };
 
     // Reduce concurrency to lower the risk of 429 errors
-    const limit = pLimit(2);
+    const limit = pLimit(1); // More conservative concurrency for Puppeteer
 
     // Helper function to implement retry logic with exponential backoff
     async function fetchWithRetry(url, options, retries = 3, initialDelay = 2000) {
@@ -31,7 +33,7 @@ async function fetchAllStreamUrls() {
     }
 
     // Process requests in smaller batches
-    const batchSize = 10;
+    const batchSize = 5; // Smaller batches for Puppeteer approach
     let allChannels = [];
     
     for (let i = 0; i < newsIds.length; i += batchSize) {
@@ -42,9 +44,9 @@ async function fetchAllStreamUrls() {
             limit(async () => {
                 try {
                     // Add a small random delay before each request to prevent exact simultaneous requests
-                    await new Promise(resolve => setTimeout(resolve, Math.random() * 500));
+                    await new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
                     
-                    const mainUrl = `https://french-tv.lol/index.php?newsid=${newsId}`;
+                    const mainUrl = `https://fstv.fun/index.php?newsid=${newsId}`;
                     const mainResponse = await fetchWithRetry(mainUrl, { headers, timeout: 10000 });
                     const htmlResponse = mainResponse.data;
                     
@@ -64,7 +66,7 @@ async function fetchAllStreamUrls() {
                     let channelName = null;
                     if (logoMatch && logoMatch[1]) {
                         fullLogo = logoMatch[1].startsWith('/')
-                            ? `https://french-tv.lol${logoMatch[1]}`
+                            ? `https://fstv.fun${logoMatch[1]}`
                             : logoMatch[1];
                         channelName = logoMatch[2] || "";
                         console.log(`NewsID ${newsId}: Found logo:`, fullLogo);
@@ -73,23 +75,23 @@ async function fetchAllStreamUrls() {
                         console.error(`NewsID ${newsId}: Poster image not found`);
                     }
                     
-                    // Add delay between main page fetch and player fetch
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    // Add delay before processing
+                    await new Promise(resolve => setTimeout(resolve, 100));
                     
-                    // Call the player URL using the extracted id.
-                    const playerUrl = `https://french-tv.lol/player/fsplayer.php?id=${playerId}`;
-                    const playerResponse = await fetchWithRetry(playerUrl, { headers, timeout: 10000 });
-                    const playerHtml = playerResponse.data;
+                    // For Stremio integration, return proxy URL without capturing auth here
+                    // Auth will be captured by proxy server when stream is actually requested
+                    const proxyStreamUrl = `http://localhost:3001/stream/${playerId}/playlist.m3u8`;
                     
-                    // Extract streamUrl from the script tag.
-                    const streamMatch = playerHtml.match(/var\s+streamUrl\s*=\s*"([^"]+)"/);
-                    if (streamMatch && streamMatch[1]) {
-                        const streamUrl = streamMatch[1];
-                        console.log(`NewsID ${newsId}: Stream URL:`, streamUrl);
-                        return { id: newsId, url: streamUrl, logo: fullLogo, name: channelName };
-                    } else {
-                        console.error(`NewsID ${newsId}: Stream URL not found`);
-                    }
+                    console.log(`NewsID ${newsId}: Using proxy URL: ${proxyStreamUrl}`);
+                    
+                    return { 
+                        id: newsId, 
+                        url: proxyStreamUrl, // Use proxy URL 
+                        logo: fullLogo, 
+                        name: channelName,
+                        playerId: playerId,
+                        authCaptured: false // Will be captured by proxy when needed
+                    };
                 } catch (error) {
                     console.error(`Error fetching newsId ${newsId}:`, error.message);
                 }
@@ -99,14 +101,26 @@ async function fetchAllStreamUrls() {
         
         allChannels = [...allChannels, ...batchChannels.filter(ch => ch !== null)];
         
-        // Add delay between batches
+        // Add longer delay between batches for Puppeteer approach
         if (i + batchSize < newsIds.length) {
             console.log(`Waiting between batches to avoid rate limiting...`);
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            await new Promise(resolve => setTimeout(resolve, 5000)); // Longer delay for Puppeteer
         }
     }
     
-    return allChannels.filter(ch => ch !== null);
+    // Cache the results
+    const finalChannels = allChannels.filter(ch => ch !== null);
+    
+    // Create cache directory if it doesn't exist
+    if (!fs.existsSync('./cache')) {
+        fs.mkdirSync('./cache');
+    }
+    
+    // Write channels cache
+    fs.writeFileSync('./cache/channels-cache.json', JSON.stringify(finalChannels, null, 2));
+    console.log(`✅ Cached ${finalChannels.length} channels to ./cache/channels-cache.json`);
+    
+    return finalChannels;
 }
 
 module.exports = fetchAllStreamUrls;
