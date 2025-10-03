@@ -7,10 +7,50 @@ class StreamProxy {
         this.app = express();
         this.port = port;
         this.channelCache = new Map(); // Cache auth URLs and segments
+        this.activeChannels = new Set(); // Track which channels are being used
         this.setupRoutes();
         
         // Pre-warm popular channels
         this.preWarmChannels();
+        
+        // Start background refresh for all active channels
+        this.startBackgroundRefresh();
+    }
+
+    // Background refresh for all active channels every 8 seconds
+    startBackgroundRefresh() {
+        setInterval(async () => {
+            const now = Date.now();
+            const channelsToRefresh = [];
+            
+            // Find channels that need refresh (older than 8 seconds or active)
+            for (const [channelId, authInfo] of this.channelCache.entries()) {
+                if (this.activeChannels.has(channelId) || (now - authInfo.timestamp) > 8000) {
+                    channelsToRefresh.push(channelId);
+                }
+            }
+            
+            // Refresh channels in parallel (max 3 at once)
+            const refreshPromises = channelsToRefresh.slice(0, 3).map(async (channelId) => {
+                try {
+                    const authResult = await captureChannelAuth(channelId);
+                    if (authResult.success) {
+                        this.channelCache.set(channelId, {
+                            authUrl: authResult.authUrl,
+                            segments: authResult.segments,
+                            m3u8Content: authResult.m3u8Content,
+                            timestamp: Date.now()
+                        });
+                        console.log(`🔄 [BG] Refreshed active channel ${channelId}`);
+                    }
+                } catch (e) {
+                    console.log(`⚠️ [BG] Failed to refresh channel ${channelId}: ${e.message}`);
+                }
+            });
+            
+            await Promise.all(refreshPromises);
+            
+        }, 8000); // Every 8 seconds
     }
 
     // Pre-warm popular channels for instant access
@@ -45,12 +85,15 @@ class StreamProxy {
                 const channelId = req.params.channelId;
                 console.log(`📺 M3U8 playlist requested for channel ${channelId}`);
                 
+                // Mark channel as active
+                this.activeChannels.add(channelId);
+                
                 // Get or update auth info for this channel
                 let authInfo = this.channelCache.get(channelId);
                 const now = Date.now();
                 
-                // Refresh auth if it's older than 15 seconds or doesn't exist
-                if (!authInfo || (now - authInfo.timestamp) > 15000) {
+                // Refresh auth if it's older than 12 seconds or doesn't exist
+                if (!authInfo || (now - authInfo.timestamp) > 12000) {
                     console.log(`🔄 Refreshing auth for channel ${channelId}...`);
                     const authResult = await captureChannelAuth(channelId);
                     
@@ -98,12 +141,15 @@ class StreamProxy {
                 
                 console.log(`📹 HLS segment requested: ${segmentFile} for channel ${channelId}`);
                 
+                // Mark channel as active
+                this.activeChannels.add(channelId);
+                
                 // Get current auth info for this channel
                 let authInfo = this.channelCache.get(channelId);
                 const now = Date.now();
                 
-                // Refresh auth if it's older than 3 seconds or doesn't exist
-                if (!authInfo || (now - authInfo.timestamp) > 3000) {
+                // Refresh auth if it's older than 5 seconds or doesn't exist (very aggressive for segments)
+                if (!authInfo || (now - authInfo.timestamp) > 5000) {
                     console.log(`🔄 Refreshing auth for segment request: ${segmentFile}`);
                     const authResult = await captureChannelAuth(channelId);
                     
@@ -201,9 +247,44 @@ class StreamProxy {
             res.json({ 
                 status: 'ok', 
                 cachedChannels: Array.from(this.channelCache.keys()),
+                activeChannels: Array.from(this.activeChannels),
                 timestamp: new Date().toISOString()
             });
         });
+
+        // Cleanup inactive channels periodically
+        setInterval(() => {
+            const now = Date.now();
+            const inactiveChannels = [];
+            
+            // Find channels inactive for more than 5 minutes
+            for (const [channelId, authInfo] of this.channelCache.entries()) {
+                if (!this.activeChannels.has(channelId) && (now - authInfo.timestamp) > 300000) {
+                    inactiveChannels.push(channelId);
+                }
+            }
+            
+            // Remove inactive channels
+            inactiveChannels.forEach(channelId => {
+                this.channelCache.delete(channelId);
+                console.log(`🧹 Cleaned up inactive channel ${channelId}`);
+            });
+            
+            // Clean up active channels set if they haven't been requested recently
+            const channelsToRemove = [];
+            for (const channelId of this.activeChannels) {
+                const authInfo = this.channelCache.get(channelId);
+                if (!authInfo || (now - authInfo.timestamp) > 60000) { // 1 minute
+                    channelsToRemove.push(channelId);
+                }
+            }
+            
+            channelsToRemove.forEach(channelId => {
+                this.activeChannels.delete(channelId);
+                console.log(`🧹 Removed from active channels: ${channelId}`);
+            });
+            
+        }, 60000); // Every minute
     }
 
     createM3U8Playlist(segments) {

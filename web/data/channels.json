@@ -1,0 +1,650 @@
+[
+  {
+    "id": "67",
+    "url": "http://localhost:3001/stream/156/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/ocs-city-logo.png",
+    "name": "OCS CITY",
+    "playerId": "156",
+    "categories": ["Premium", "Series"]
+  },
+  {
+    "id": "96",
+    "url": "http://localhost:3001/stream/215/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/tf1-series-films-logo-min.png",
+    "name": "TF1 Séries Films",
+    "playerId": "215",
+    "categories": ["Series"]
+  },
+  {
+    "id": "62",
+    "url": "http://localhost:3001/stream/183/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/warner-tv-min.png",
+    "name": "Warner TV",
+    "playerId": "183",
+    "categories": ["Premium", "Series"]
+  },
+  {
+    "id": "46",
+    "url": "http://localhost:3001/stream/204/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/cstar-logo-min.png",
+    "name": "C8",
+    "playerId": "204",
+    "categories": ["Live"]
+  },
+  {
+    "id": "16",
+    "url": "http://localhost:3001/stream/59/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/eurosport-logo.png",
+    "name": "EUROSPORT 1",
+    "playerId": "59",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "14",
+    "url": "http://localhost:3001/stream/151/playlist.m3u8",
+    "logo": "https://fstv.fun/DAZN2.png",
+    "name": "Dazn 2",
+    "playerId": "151",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "64",
+    "url": "http://localhost:3001/stream/237/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/rtl-9-logo.png",
+    "name": "RTL9",
+    "playerId": "237",
+    "categories": ["Cinema"]
+  },
+  {
+    "id": "26",
+    "url": "http://localhost:3001/stream/162/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-sport-5.png",
+    "name": "CANAL+ Sport 5",
+    "playerId": "162",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "50",
+    "url": "http://localhost:3001/stream/159/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/6ter-min.png",
+    "name": "6ter",
+    "playerId": "159",
+    "categories": ["Family"]
+  },
+  {
+    "id": "82",
+    "url": "http://localhost:3001/stream/209/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/lci--min.png",
+    "name": "LCI",
+    "playerId": "209",
+    "categories": ["News"]
+  },
+  {
+    "id": "47",
+    "url": "http://localhost:3001/stream/79/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/w9-logo.png",
+    "name": "W9",
+    "playerId": "79",
+    "categories": ["Live"]
+  },
+  {
+    "id": "12",
+    "url": "http://localhost:3001/stream/58/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-360.png",
+    "name": "Canal + Sport 360",
+    "playerId": "58",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "11",
+    "url": "http://localhost:3001/stream/42/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/rmc-sport-3-logo-b.png",
+    "name": "Rmc Sport 3",
+    "playerId": "42",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "10",
+    "url": "http://localhost:3001/stream/40/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/rmc-sport-2-logo-b.png",
+    "name": "Rmc Sport 2",
+    "playerId": "40",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "13",
+    "url": "http://localhost:3001/stream/150/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/DAZN-1-w.png",
+    "name": "Dazn 1",
+    "playerId": "150",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "33",
+    "url": "http://localhost:3001/stream/205/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/disney-channel-logo-min.png",
+    "name": "Disney Channel",
+    "playerId": "205",
+    "categories": ["Kids", "Family"]
+  },
+  {
+    "id": "7",
+    "url": "http://localhost:3001/stream/88/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-foot.png",
+    "name": "Canal+ Foot",
+    "playerId": "88",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "22",
+    "url": "http://localhost:3001/stream/112/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-moto-gp-logo.png",
+    "name": "CANAL+ MotoGP",
+    "playerId": "112",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "44",
+    "url": "http://localhost:3001/stream/106/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-logo.png",
+    "name": "Canal+",
+    "playerId": "106",
+    "categories": ["Premium"]
+  },
+  {
+    "id": "9",
+    "url": "http://localhost:3001/stream/33/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/rmc-sport-1-logo-b.png",
+    "name": "Rmc Sport 1",
+    "playerId": "33",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "6",
+    "url": "http://localhost:3001/stream/97/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/mangas-tv-logo.png",
+    "name": "Mangas",
+    "playerId": "97",
+    "categories": ["Kids"]
+  },
+  {
+    "id": "74",
+    "url": "http://localhost:3001/stream/199/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/cine-classic-logo-min.png",
+    "name": "Ciné+ Classic",
+    "playerId": "199",
+    "categories": ["Cinema", "Premium"]
+  },
+  {
+    "id": "41",
+    "url": "http://localhost:3001/stream/87/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/tf1-logopng.png",
+    "name": "TF1",
+    "playerId": "87",
+    "categories": ["Live"]
+  },
+  {
+    "id": "36",
+    "url": "http://localhost:3001/stream/208/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/gulli-logo-min.png",
+    "name": "Gulli",
+    "playerId": "208",
+    "categories": ["Kids", "Family"]
+  },
+  {
+    "id": "31",
+    "url": "http://localhost:3001/stream/180/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/boomerang-logo-min.png",
+    "name": "Boomerang TV",
+    "playerId": "180",
+    "categories": ["Kids"]
+  },
+  {
+    "id": "30",
+    "url": "http://localhost:3001/stream/203/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/boing-logo-min.png",
+    "name": "Boing",
+    "playerId": "203",
+    "categories": ["Kids"]
+  },
+  {
+    "id": "88",
+    "url": "http://localhost:3001/stream/210/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/mcm-logo-min.png",
+    "name": "MCM",
+    "playerId": "210",
+    "categories": ["Music"]
+  },
+  {
+    "id": "57",
+    "url": "http://localhost:3001/stream/81/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/nat-geo-logo.png",
+    "name": "National Geographic",
+    "playerId": "81",
+    "categories": ["Documentary"]
+  },
+  {
+    "id": "60",
+    "url": "http://localhost:3001/stream/213/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/science-vie-logo-min.png",
+    "name": "Science &amp; Vie TV",
+    "playerId": "213",
+    "categories": ["Documentary"]
+  },
+  {
+    "id": "85",
+    "url": "http://localhost:3001/stream/111/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/mtv-logo.png",
+    "name": "MTV",
+    "playerId": "111",
+    "categories": ["Music"]
+  },
+  {
+    "id": "92",
+    "url": "http://localhost:3001/stream/187/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/planete-aventure-logo-min.png",
+    "name": "Planète+ Aventure",
+    "playerId": "187",
+    "categories": ["Documentary"]
+  },
+  {
+    "id": "21",
+    "url": "http://localhost:3001/stream/89/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canalplus-formula-1.png",
+    "name": "CANAL+ Formule 1",
+    "playerId": "89",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "58",
+    "url": "http://localhost:3001/stream/82/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/nat-geo-wild-logo.png",
+    "name": "National Geographic Wild",
+    "playerId": "82",
+    "categories": ["Documentary"]
+  },
+  {
+    "id": "27",
+    "url": "http://localhost:3001/stream/113/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/lequipe-live-1.png",
+    "name": "L&#039;EQUIPE Live TV",
+    "playerId": "113",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "19",
+    "url": "http://localhost:3001/stream/160/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/DAZN-3-w.png",
+    "name": "DAZN 3",
+    "playerId": "160",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "56",
+    "url": "http://localhost:3001/stream/185/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/discovery-science-logo-min.png",
+    "name": "Discovery science ( TLC )",
+    "playerId": "185",
+    "categories": ["Documentary"]
+  },
+  {
+    "id": "86",
+    "url": "http://localhost:3001/stream/212/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/mtv-hits-logo-min.png",
+    "name": "MTV Hits",
+    "playerId": "212",
+    "categories": ["Music"]
+  },
+  {
+    "id": "79",
+    "url": "http://localhost:3001/stream/169/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/bfm-tv-logo-min.png",
+    "name": "BFMTV",
+    "playerId": "169",
+    "categories": ["News"]
+  },
+  {
+    "id": "90",
+    "url": "http://localhost:3001/stream/50/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/bein-sports-3-logo.png",
+    "name": "Bein Sport 3",
+    "playerId": "50",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "89",
+    "url": "http://localhost:3001/stream/167/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/bein-sports-2-logo.png",
+    "name": "Bein Sport 2",
+    "playerId": "167",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "78",
+    "url": "http://localhost:3001/stream/198/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-family-logo-min.png",
+    "name": "Canal+ Family",
+    "playerId": "198",
+    "categories": ["Family", "Premium"]
+  },
+  {
+    "id": "80",
+    "url": "http://localhost:3001/stream/171/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/cnews-logo-min.png",
+    "name": "CNEWS",
+    "playerId": "171",
+    "categories": ["News"]
+  },
+  {
+    "id": "48",
+    "url": "http://localhost:3001/stream/78/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/tmc-logo.png",
+    "name": "TMC",
+    "playerId": "78",
+    "categories": ["Live"]
+  },
+  {
+    "id": "23",
+    "url": "http://localhost:3001/stream/56/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-sport-2.png",
+    "name": "CANAL+ Sport 2",
+    "playerId": "56",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "52",
+    "url": "http://localhost:3001/stream/179/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-j-logo-min.png",
+    "name": "Canal J",
+    "playerId": "179",
+    "categories": ["Kids", "Family"]
+  },
+  {
+    "id": "38",
+    "url": "http://localhost:3001/stream/178/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/nickelodeon-logo-min.png",
+    "name": "Nickelodeon",
+    "playerId": "178",
+    "categories": ["Kids", "Family"]
+  },
+  {
+    "id": "95",
+    "url": "http://localhost:3001/stream/184/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/toute-lhistoire-logo-min.png",
+    "name": "Toute l´Histoire",
+    "playerId": "184",
+    "categories": ["Documentary"]
+  },
+  {
+    "id": "15",
+    "url": "http://localhost:3001/stream/54/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-sport.png",
+    "name": "CANAL + Sport",
+    "playerId": "54",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "71",
+    "url": "http://localhost:3001/stream/200/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/cine-emotion-logo-min.png",
+    "name": "Ciné+ Emotion",
+    "playerId": "200",
+    "categories": ["Cinema", "Premium"]
+  },
+  {
+    "id": "4",
+    "url": "http://localhost:3001/stream/44/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/bein-sports-1-logo.png",
+    "name": "Bein Sport 1",
+    "playerId": "44",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "94",
+    "url": "http://localhost:3001/stream/91/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/syfy-logo.png",
+    "name": "SYFY",
+    "playerId": "91",
+    "categories": ["Series"]
+  },
+  {
+    "id": "39",
+    "url": "http://localhost:3001/stream/214/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/teletoon-logo-min.png",
+    "name": "Télétoon+",
+    "playerId": "214",
+    "categories": ["Kids"]
+  },
+  {
+    "id": "45",
+    "url": "http://localhost:3001/stream/102/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/m6-tv-logo.png",
+    "name": "M6",
+    "playerId": "102",
+    "categories": ["Live"]
+  },
+  {
+    "id": "75",
+    "url": "http://localhost:3001/stream/141/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-series-logo-channels.png",
+    "name": "CANAL+ SÉRIES",
+    "playerId": "141",
+    "categories": ["Series", "Premium"]
+  },
+  {
+    "id": "32",
+    "url": "http://localhost:3001/stream/76/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/cartoon-networks-logo.png",
+    "name": "Cartoon Network",
+    "playerId": "76",
+    "categories": ["Kids", "Family"]
+  },
+  {
+    "id": "76",
+    "url": "http://localhost:3001/stream/139/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-cinema-logo-channels.png",
+    "name": "CANAL+ Cinéma",
+    "playerId": "139",
+    "categories": ["Cinema", "Premium"]
+  },
+  {
+    "id": "29",
+    "url": "http://localhost:3001/stream/165/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/lequipe-live-3.png",
+    "name": "L&#039;EQUIPE 3 Live TV",
+    "playerId": "165",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "37",
+    "url": "http://localhost:3001/stream/176/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/j-one-logo-min.png",
+    "name": "J-One",
+    "playerId": "176",
+    "categories": ["Kids"]
+  },
+  {
+    "id": "81",
+    "url": "http://localhost:3001/stream/170/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/euronews-logo-min.png",
+    "name": "Euronews",
+    "playerId": "170",
+    "categories": ["News"]
+  },
+  {
+    "id": "40",
+    "url": "http://localhost:3001/stream/177/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/tiji-logo-min.png",
+    "name": "TiJi",
+    "playerId": "177",
+    "categories": ["Kids", "Family"]
+  },
+  {
+    "id": "34",
+    "url": "http://localhost:3001/stream/206/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/disney-junior-logo-min.png",
+    "name": "Disney Junior",
+    "playerId": "206",
+    "categories": ["Kids", "Family"]
+  },
+  {
+    "id": "51",
+    "url": "http://localhost:3001/stream/172/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/tv5-monde-min.png",
+    "name": "TV5 Monde",
+    "playerId": "172",
+    "categories": ["Live"]
+  },
+  {
+    "id": "73",
+    "url": "http://localhost:3001/stream/201/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/cine-frisson-logo-min.png",
+    "name": "Ciné+ Frisson",
+    "playerId": "201",
+    "categories": ["Cinema", "Premium"]
+  },
+  {
+    "id": "43",
+    "url": "http://localhost:3001/stream/138/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/france-3-logo-channels.png",
+    "name": "France 3",
+    "playerId": "138",
+    "categories": ["Live"]
+  },
+  {
+    "id": "59",
+    "url": "http://localhost:3001/stream/90/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/rmc-decouverte.png",
+    "name": "RMC Découverte",
+    "playerId": "90",
+    "categories": ["Documentary"]
+  },
+  {
+    "id": "83",
+    "url": "http://localhost:3001/stream/173/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/france-24-logo-min.png",
+    "name": "France 24",
+    "playerId": "173",
+    "categories": ["News"]
+  },
+  {
+    "id": "69",
+    "url": "http://localhost:3001/stream/103/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/novelas-tv-logo.png",
+    "name": "Novelas TV",
+    "playerId": "103",
+    "categories": ["Series"]
+  },
+  {
+    "id": "63",
+    "url": "http://localhost:3001/stream/95/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/tcm-cinema-hd-logo.png",
+    "name": "TCM Cinéma",
+    "playerId": "95",
+    "categories": ["Cinema"]
+  },
+  {
+    "id": "72",
+    "url": "http://localhost:3001/stream/198/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/cine-famiz-logo-min.png",
+    "name": "Ciné+ Family",
+    "playerId": "198",
+    "categories": ["Cinema", "Family", "Premium"]
+  },
+  {
+    "id": "24",
+    "url": "http://localhost:3001/stream/57/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-sport-3.png",
+    "name": "CANAL+ Sport 3",
+    "playerId": "57",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "18",
+    "url": "http://localhost:3001/stream/60/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/eurosport-2-logo.png",
+    "name": "EUROSPORT 2",
+    "playerId": "60",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "87",
+    "url": "http://localhost:3001/stream/110/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/m6-music-min.png",
+    "name": "M6 Music",
+    "playerId": "110",
+    "categories": ["Music"]
+  },
+  {
+    "id": "42",
+    "url": "http://localhost:3001/stream/137/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/france-2.logo-channelpng.png",
+    "name": "France 2",
+    "playerId": "137",
+    "categories": ["Live"]
+  },
+  {
+    "id": "17",
+    "url": "http://localhost:3001/stream/59/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/eurosport-logo.png",
+    "name": "EUROSPORT 1",
+    "playerId": "59",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "55",
+    "url": "http://localhost:3001/stream/186/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/discovery-logo-min.png",
+    "name": "Discovery Channel",
+    "playerId": "186",
+    "categories": ["Documentary"]
+  },
+  {
+    "id": "84",
+    "url": "http://localhost:3001/stream/109/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/nrj-hits-tv-min.png",
+    "name": "NRJ Hits",
+    "playerId": "109",
+    "categories": ["Music"]
+  },
+  {
+    "id": "35",
+    "url": "http://localhost:3001/stream/207/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/gametoon-logo-min.png",
+    "name": "Gametoon",
+    "playerId": "207",
+    "categories": ["Kids"]
+  },
+  {
+    "id": "28",
+    "url": "http://localhost:3001/stream/164/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/lequipe-live-2.png",
+    "name": "L&#039;EQUIPE 2 Live TV",
+    "playerId": "164",
+    "categories": ["Sports"]
+  },
+  {
+    "id": "93",
+    "url": "http://localhost:3001/stream/77/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/tfx-logo.png",
+    "name": "TFX",
+    "playerId": "77",
+    "categories": ["Live"]
+  },
+  {
+    "id": "25",
+    "url": "http://localhost:3001/stream/161/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/canal-plus-sport-4.png",
+    "name": "CANAL+ Sport 4",
+    "playerId": "161",
+    "categories": ["Sports", "Premium"]
+  },
+  {
+    "id": "5",
+    "url": "http://localhost:3001/stream/104/playlist.m3u8",
+    "logo": "https://fstv.fun/chaineimg/game-one-tv-logo.png",
+    "name": "Game One",
+    "playerId": "104",
+    "categories": ["Live"]
+  }
+]

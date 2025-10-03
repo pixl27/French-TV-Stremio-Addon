@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreamVerse • Live TV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M18.25 2.02c-1.34-.04-2.56.69-3.21 1.87L12 8.66L8.97 3.9c-.69-1.18-1.93-1.91-3.29-1.87c-2.14.06-3.69 1.91-3.57 4.05l.36 6.65c.14 2.55 1.69 4.8 3.99 5.92l4.12 1.96c.94.45 2.05.45 2.99 0l4.12-1.96c2.3-1.12 3.85-3.37 3.99-5.92l.36-6.65c.12-2.14-1.43-4-3.57-4.05Z"
+            />
+          </svg>
+          <div class="brand-text">
+            <span class="brand-title">StreamVerse</span>
+            <span class="brand-sub">Live Channels</span>
+          </div>
+        </div>
+        <nav class="actions">
+          <button class="ghost" data-action="favorites">Favourites</button>
+          <button class="ghost" data-action="recent">Recently Watched</button>
+          <button class="primary" data-action="random">Surprise Me</button>
+        </nav>
+      </header>
+
+  <main class="app-main" id="list-view">
+        <section class="hero" id="hero">
+          <div class="hero-background">
+            <div class="hero-backdrop" id="hero-backdrop"></div>
+            <div class="hero-gradient"></div>
+            <div class="hero-lights"></div>
+          </div>
+          <div class="hero-content">
+            <div class="hero-header">
+              <div class="eyebrow">Featured Live Channel</div>
+              <h1 id="hero-title">Live &amp; On Air</h1>
+            </div>
+            <p id="hero-description">
+              Stream popular French TV channels in real time. Browse curated
+              collections, add favourites, and jump straight into the live feed in
+              seconds.
+            </p>
+            <div class="hero-meta" id="hero-meta"></div>
+            <div class="hero-actions">
+              <button class="primary" id="hero-watch">Watch Now</button>
+              <button class="ghost" id="hero-favorite">Add to Favourites</button>
+            </div>
+          </div>
+          <div class="hero-side">
+            <div class="hero-logo-wrap">
+              <img id="hero-logo" alt="Channel logo" />
+            </div>
+            <div class="hero-side-description" id="hero-side-description"></div>
+          </div>
+        </section>
+
+        <section class="carousel-deck" id="carousel-deck" aria-label="Channel collections"></section>
+
+        <section class="controls">
+          <div class="search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M10 2a8 8 0 1 1 4.906 14.32l4.387 4.387l-1.414 1.414l-4.387-4.387A8 8 0 0 1 10 2m0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12"
+              />
+            </svg>
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search channels, genres or keywords..."
+              autocomplete="off"
+            />
+          </div>
+          <div class="filters" id="filters"></div>
+        </section>
+
+        <section class="channel-grid" id="channel-grid"></section>
+      </main>
+
+      <footer class="app-footer">
+        <div>
+          <strong>StreamVerse</strong> — curated French live TV experience.
+        </div>
+        <div class="footer-links">
+          <a href="#">Support</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </footer>
+    </div>
+
+    <template id="channel-card-template">
+      <article class="channel-card">
+        <div class="card-media">
+          <img class="card-logo" alt="Channel logo" loading="lazy" />
+          <div class="card-badge"></div>
+        </div>
+        <div class="card-meta">
+          <h3 class="card-title"></h3>
+          <p class="card-tags"></p>
+        </div>
+        <div class="card-actions">
+          <button class="primary watch">Watch</button>
+          <button class="ghost detail">Details</button>
+          <button class="ghost favourite">♡</button>
+        </div>
+      </article>
+    </template>
+
+    <section class="detail-view" id="detail-view" aria-hidden="true">
+      <div class="detail-back">
+        <button class="ghost back" id="detail-back" type="button">
+          <span aria-hidden="true">←</span>
+          Back to channels
+        </button>
+      </div>
+      <div class="detail-hero">
+        <div class="detail-hero-backdrop" id="detail-backdrop"></div>
+        <div class="detail-hero-overlay" id="detail-hero-overlay"></div>
+        <div class="detail-hero-content">
+          <div class="detail-hero-info">
+            <div class="detail-hero-logo">
+              <img id="detail-logo" alt="Channel logo" />
+            </div>
+            <div class="detail-hero-text">
+              <span class="eyebrow" id="detail-eyebrow">Live Channel</span>
+              <h1 id="detail-title">Now Streaming</h1>
+              <p id="detail-description">
+                Explore the live stream with programme highlights, stream metadata and quick access to your favourite French channels.
+              </p>
+              <div class="detail-tags" id="detail-tags"></div>
+              <div class="detail-hero-actions">
+                <button class="primary" id="detail-play" type="button">Play Live</button>
+                <button class="ghost" id="detail-favourite" type="button">Add to favourites</button>
+                <a class="ghost" id="detail-open-native" target="_blank" rel="noopener">Open direct stream</a>
+              </div>
+            </div>
+          </div>
+          <div class="detail-hero-player">
+            <div class="video-wrapper">
+              <video id="detail-player" controls playsinline preload="metadata"></video>
+            </div>
+            <div class="detail-player-status" id="detail-player-status"></div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panels">
+        <aside class="detail-meta">
+          <dl class="detail-stats">
+            <div>
+              <dt>Channel ID</dt>
+              <dd id="detail-channel-id">—</dd>
+            </div>
+            <div>
+              <dt>Player ID</dt>
+              <dd id="detail-player-id">—</dd>
+            </div>
+            <div>
+              <dt>Direct Link</dt>
+              <dd><a id="detail-direct-link" target="_blank" rel="noopener">—</a></dd>
+            </div>
+          </dl>
+        </aside>
+        <section class="detail-history">
+          <h3>Recently watched</h3>
+          <ul id="detail-recent"></ul>
+        </section>
+      </div>
+      <section class="detail-suggestions">
+        <h3>Similar channels</h3>
+        <div class="detail-suggestions-grid" id="detail-related"></div>
+      </section>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.6/dist/hls.min.js"></script>
+    <script type="module" src="./assets/app.js"></script>
+  </body>
+</html>
